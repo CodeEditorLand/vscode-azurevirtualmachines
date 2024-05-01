@@ -181,19 +181,19 @@
 	},
 	"activationEvents": [],
 	"dependencies": {
-		"fs-extra": "^8.1.0",
-		"open": "^8.0.4",
-		"semver": "^7.5.2",
-		"ssh-config": "^4.1.4",
-		"which": "^2.0.2"
+		"fs-extra": "11.2.0",
+		"open": "10.1.0",
+		"semver": "7.6.0",
+		"ssh-config": "4.4.3",
+		"which": "4.0.0"
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
 		"@playform/document": "0.0.6",
-		"@types/fs-extra": "^8.1.1",
-		"@types/node": "^16.18.36",
-		"@types/which": "^1.3.2",
-		"glob": "^7.1.6"
+		"@types/fs-extra": "11.0.4",
+		"@types/node": "20.12.7",
+		"@types/which": "3.0.3",
+		"glob": "10.3.12"
 	},
 	"extensionDependencies": [
 		"ms-azuretools.vscode-azureresourcegroups"
