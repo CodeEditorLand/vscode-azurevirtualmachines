@@ -147,18 +147,18 @@
 		}
 	},
 	"dependencies": {
-		"fs-extra": "^11.2.0",
-		"open": "^10.1.0",
-		"semver": "^7.6.2",
-		"ssh-config": "^4.4.4",
-		"which": "^4.0.0"
+		"fs-extra": "11.2.0",
+		"open": "10.1.0",
+		"semver": "7.6.2",
+		"ssh-config": "4.4.4",
+		"which": "4.0.0"
 	},
 	"description": "%extension.description%",
 	"devDependencies": {
-		"@types/fs-extra": "^11.0.4",
-		"@types/node": "^20.14.2",
-		"@types/which": "^3.0.4",
-		"glob": "^10.4.1"
+		"@types/fs-extra": "11.0.4",
+		"@types/node": "20.14.2",
+		"@types/which": "3.0.4",
+		"glob": "10.4.1"
 	},
 	"displayName": "Azure Virtual Machines",
 	"extensionDependencies": [
