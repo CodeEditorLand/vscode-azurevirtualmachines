@@ -159,17 +159,17 @@
 	},
 	"activationEvents": [],
 	"dependencies": {
-		"fs-extra": "^11.2.0",
-		"open": "^10.1.0",
-		"semver": "^7.6.2",
-		"ssh-config": "^4.4.4",
-		"which": "^4.0.0"
+		"fs-extra": "11.2.0",
+		"open": "10.1.0",
+		"semver": "7.6.2",
+		"ssh-config": "4.4.4",
+		"which": "4.0.0"
 	},
 	"devDependencies": {
-		"@types/fs-extra": "^11.0.4",
-		"@types/node": "^20.14.8",
-		"@types/which": "^3.0.4",
-		"glob": "^10.4.2"
+		"@types/fs-extra": "11.0.4",
+		"@types/node": "20.14.8",
+		"@types/which": "3.0.4",
+		"glob": "10.4.2"
 	},
 	"extensionDependencies": [
 		"ms-azuretools.vscode-azureresourcegroups"
