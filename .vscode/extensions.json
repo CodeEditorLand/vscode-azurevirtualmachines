@@ -1,7 +1,0 @@
-{
-    "recommendations": [
-        "dbaeumer.vscode-eslint",
-        "ms-vscode.azure-account",
-        "ms-azuretools.vscode-azureresourcegroups"
-    ]
-}
