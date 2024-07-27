@@ -3,49 +3,79 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-'use strict';
+"use strict";
 
-import { registerAzureUtilsExtensionVariables } from '@microsoft/vscode-azext-azureutils';
-import { apiUtils, callWithTelemetryAndErrorHandling, createApiProvider, createAzExtOutputChannel, registerUIExtensionVariables, type AzureExtensionApi, type IActionContext } from '@microsoft/vscode-azext-utils';
-import { type AzureHostExtensionApi } from '@microsoft/vscode-azext-utils/hostapi';
-import { AzExtResourceType } from '@microsoft/vscode-azureresources-api';
-import type * as vscode from 'vscode';
-import { VirtualMachineResolver } from './VirtualMachineTreeItemResolver';
-import { revealTreeItem } from './commands/api/revealTreeItem';
-import { registerCommands } from './commands/registerCommands';
-import { ext } from './extensionVariables';
+import { registerAzureUtilsExtensionVariables } from "@microsoft/vscode-azext-azureutils";
+import {
+	apiUtils,
+	callWithTelemetryAndErrorHandling,
+	createApiProvider,
+	createAzExtOutputChannel,
+	registerUIExtensionVariables,
+	type AzureExtensionApi,
+	type IActionContext,
+} from "@microsoft/vscode-azext-utils";
+import { type AzureHostExtensionApi } from "@microsoft/vscode-azext-utils/hostapi";
+import { AzExtResourceType } from "@microsoft/vscode-azureresources-api";
+import type * as vscode from "vscode";
+import { VirtualMachineResolver } from "./VirtualMachineTreeItemResolver";
+import { revealTreeItem } from "./commands/api/revealTreeItem";
+import { registerCommands } from "./commands/registerCommands";
+import { ext } from "./extensionVariables";
 
-export async function activateInternal(context: vscode.ExtensionContext, perfStats: { loadStartTime: number; loadEndTime: number }, ignoreBundle?: boolean): Promise<apiUtils.AzureExtensionApiProvider> {
-    ext.context = context;
-    ext.ignoreBundle = ignoreBundle;
-    ext.outputChannel = createAzExtOutputChannel('Azure Virtual Machines', ext.prefix);
-    context.subscriptions.push(ext.outputChannel);
+export async function activateInternal(
+	context: vscode.ExtensionContext,
+	perfStats: { loadStartTime: number; loadEndTime: number },
+	ignoreBundle?: boolean,
+): Promise<apiUtils.AzureExtensionApiProvider> {
+	ext.context = context;
+	ext.ignoreBundle = ignoreBundle;
+	ext.outputChannel = createAzExtOutputChannel(
+		"Azure Virtual Machines",
+		ext.prefix,
+	);
+	context.subscriptions.push(ext.outputChannel);
 
-    registerUIExtensionVariables(ext);
-    registerAzureUtilsExtensionVariables(ext);
+	registerUIExtensionVariables(ext);
+	registerAzureUtilsExtensionVariables(ext);
 
-    await callWithTelemetryAndErrorHandling('azureVirtualMachines.activate', async (activateContext: IActionContext) => {
-        activateContext.telemetry.properties.isActivationEvent = 'true';
-        activateContext.telemetry.measurements.mainFileLoad = (perfStats.loadEndTime - perfStats.loadStartTime) / 1000;
+	await callWithTelemetryAndErrorHandling(
+		"azureVirtualMachines.activate",
+		async (activateContext: IActionContext) => {
+			activateContext.telemetry.properties.isActivationEvent = "true";
+			activateContext.telemetry.measurements.mainFileLoad =
+				(perfStats.loadEndTime - perfStats.loadStartTime) / 1000;
 
-        registerCommands();
+			registerCommands();
 
-        const rgApiProvider = await apiUtils.getExtensionExports<apiUtils.AzureExtensionApiProvider>('ms-azuretools.vscode-azureresourcegroups');
-        if (rgApiProvider) {
-            const api = rgApiProvider.getApi<AzureHostExtensionApi>('0.0.1');
-            ext.rgApi = api;
-            api.registerApplicationResourceResolver(AzExtResourceType.VirtualMachines, new VirtualMachineResolver());
-        } else {
-            throw new Error('Could not find the Azure Resource Groups extension');
-        }
-    });
+			const rgApiProvider =
+				await apiUtils.getExtensionExports<apiUtils.AzureExtensionApiProvider>(
+					"ms-azuretools.vscode-azureresourcegroups",
+				);
+			if (rgApiProvider) {
+				const api =
+					rgApiProvider.getApi<AzureHostExtensionApi>("0.0.1");
+				ext.rgApi = api;
+				api.registerApplicationResourceResolver(
+					AzExtResourceType.VirtualMachines,
+					new VirtualMachineResolver(),
+				);
+			} else {
+				throw new Error(
+					"Could not find the Azure Resource Groups extension",
+				);
+			}
+		},
+	);
 
-    return createApiProvider([<AzureExtensionApi>{
-        revealTreeItem,
-        apiVersion: '1.0.0'
-    }]);
+	return createApiProvider([
+		<AzureExtensionApi>{
+			revealTreeItem,
+			apiVersion: "1.0.0",
+		},
+	]);
 }
 
 export function deactivateInternal(): void {
-    return;
+	return;
 }

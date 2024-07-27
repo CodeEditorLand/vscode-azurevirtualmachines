@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 export interface AzureVirtualMachinesExtensionApi {
-    apiVersion: string;
+	apiVersion: string;
 
-    revealTreeItem(resourceId: string): Promise<void>;
+	revealTreeItem(resourceId: string): Promise<void>;
 }
