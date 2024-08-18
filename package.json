@@ -150,13 +150,13 @@
 		"fs-extra": "11.2.0",
 		"open": "10.1.0",
 		"semver": "7.6.3",
-		"ssh-config": "4.4.4",
+		"ssh-config": "5.0.0",
 		"which": "4.0.0"
 	},
 	"description": "%extension.description%",
 	"devDependencies": {
 		"@types/fs-extra": "11.0.4",
-		"@types/node": "22.1.0",
+		"@types/node": "22.4.0",
 		"@types/which": "3.0.4",
 		"glob": "11.0.0"
 	},
