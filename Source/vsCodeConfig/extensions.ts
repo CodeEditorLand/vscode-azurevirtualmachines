@@ -4,5 +4,5 @@
  *--------------------------------------------------------------------------------------------*/
 
 export interface IExtensionsJson {
-	recommendations?: string[];
+    recommendations?: string[];
 }

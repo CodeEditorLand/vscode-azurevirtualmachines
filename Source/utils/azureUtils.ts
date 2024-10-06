@@ -6,5 +6,5 @@
 import { parseAzureResourceId } from "@microsoft/vscode-azext-azureutils";
 
 export function getNameFromId(id: string): string {
-	return parseAzureResourceId(id).resourceName;
+    return parseAzureResourceId(id).resourceName;
 }

@@ -3,36 +3,25 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { type IActionContext } from "@microsoft/vscode-azext-utils";
-import * as vscode from "vscode";
+import { type IActionContext } from '@microsoft/vscode-azext-utils';
+import * as vscode from 'vscode';
+import { vmFilter } from '../constants';
+import { ext } from '../extensionVariables';
+import { localize } from '../localize';
+import { type ResolvedVirtualMachineTreeItem } from '../tree/VirtualMachineTreeItem';
 
-import { vmFilter } from "../constants";
-import { ext } from "../extensionVariables";
-import { localize } from "../localize";
-import { type ResolvedVirtualMachineTreeItem } from "../tree/VirtualMachineTreeItem";
+export async function copyIpAddress(context: IActionContext, node?: ResolvedVirtualMachineTreeItem): Promise<void> {
+    if (!node) {
+        node = await ext.rgApi.pickAppResource<ResolvedVirtualMachineTreeItem>(context, {
+            filter: vmFilter,
+        });
+    }
 
-export async function copyIpAddress(
-	context: IActionContext,
-	node?: ResolvedVirtualMachineTreeItem,
-): Promise<void> {
-	if (!node) {
-		node = await ext.rgApi.pickAppResource<ResolvedVirtualMachineTreeItem>(
-			context,
-			{
-				filter: vmFilter,
-			},
-		);
-	}
+    if (!node) {
+        return;
+    }
 
-	if (!node) {
-		return;
-	}
-
-	await vscode.env.clipboard.writeText(await node.getIpAddress(context));
-	const message: string = localize(
-		"copiedIpAddress",
-		'"{0}"\'s IP address has been copied to the clipboard',
-		node.name,
-	);
-	void vscode.window.showInformationMessage(message);
+    await vscode.env.clipboard.writeText(await node.getIpAddress(context));
+    const message: string = localize('copiedIpAddress', '"{0}"\'s IP address has been copied to the clipboard', node.name);
+    void vscode.window.showInformationMessage(message);
 }

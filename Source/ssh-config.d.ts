@@ -3,73 +3,67 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------------------------------------------*/
 
-declare module "ssh-config" {
-	export type LeafConfigurationEntry =
-		| ConfigurationDirective
-		| ConfigurationComment;
-	export type ConfigurationEntry =
-		| HostConfigurationDirective
-		| LeafConfigurationEntry;
+declare module 'ssh-config' {
 
-	export const enum Type {
-		Directive = 1,
-		Comment = 2,
-	}
+    export type LeafConfigurationEntry = ConfigurationDirective | ConfigurationComment;
+    export type ConfigurationEntry = HostConfigurationDirective | LeafConfigurationEntry;
 
-	export interface Configuration extends Array<ConfigurationEntry> {
-		compute(host: string): ResolvedConfiguration;
+    export const enum Type {
+        Directive = 1,
+        Comment = 2
+    }
 
-		/**
-		 * Appends a map of parameters to values. If "Host" is included
-		 * as one of the keys, all subsequent keys will be nested under
-		 * that host entry.
-		 */
-		append(options: { [key: string]: string }): void;
+    export interface Configuration extends Array<ConfigurationEntry> {
+        compute(host: string): ResolvedConfiguration;
 
-		/**
-		 * Prints the properly formatted configuration.
-		 */
-		toString(): string;
-	}
+        /**
+         * Appends a map of parameters to values. If "Host" is included
+         * as one of the keys, all subsequent keys will be nested under
+         * that host entry.
+         */
+        append(options: { [key: string]: string }): void;
 
-	/**
-	 * Should match CASE_NORMALIZED_PROPS to be normalized to this casing
-	 */
-	export interface ResolvedConfiguration {
-		Host: string;
-		HostName: string;
-		IdentityFile: string[];
-		User: string;
-		Port: string;
-		ConnectTimeout?: string;
-		RemoteCommand?: string;
-		LocalForward?: string[];
-	}
+        /**
+         * Prints the properly formatted configuration.
+         */
+        toString(): string;
+    }
 
-	export interface BaseConfigurationDirective {
-		type: Type.Directive;
-		param: string;
-		value: string | string[];
-	}
+    /**
+     * Should match CASE_NORMALIZED_PROPS to be normalized to this casing
+     */
+    export interface ResolvedConfiguration {
+        Host: string;
+        HostName: string;
+        IdentityFile: string[];
+        User: string;
+        Port: string;
+        ConnectTimeout?: string;
+        RemoteCommand?: string;
+        LocalForward?: string[];
+    }
 
-	export interface ConfigurationDirective extends BaseConfigurationDirective {
-		value: string;
-	}
+    export interface BaseConfigurationDirective {
+        type: Type.Directive;
+        param: string;
+        value: string | string[];
+    }
 
-	export interface HostConfigurationDirective
-		extends BaseConfigurationDirective {
-		param: "Host";
-		config: LeafConfigurationEntry[];
-	}
+    export interface ConfigurationDirective extends BaseConfigurationDirective {
+        value: string;
+    }
 
-	export interface ConfigurationComment {
-		type: Type.Comment;
-		content: string;
-	}
+    export interface HostConfigurationDirective extends BaseConfigurationDirective {
+        param: 'Host';
+        config: LeafConfigurationEntry[];
+    }
 
-	export function parse(raw: string): Configuration;
+    export interface ConfigurationComment {
+        type: Type.Comment;
+        content: string;
+    }
 
-	export function stringify(
-		directive: ReadonlyArray<HostConfigurationDirective>,
-	): string;
+    export function parse(raw: string): Configuration;
+
+    export function stringify(directive: ReadonlyArray<HostConfigurationDirective>): string;
 }
