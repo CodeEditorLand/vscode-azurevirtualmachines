@@ -150,7 +150,7 @@
 		"fs-extra": "11.2.0",
 		"open": "10.1.0",
 		"semver": "7.6.3",
-		"ssh-config": "5.0.0",
+		"ssh-config": "5.0.1",
 		"which": "5.0.0"
 	},
 	"description": "%extension.description%",
