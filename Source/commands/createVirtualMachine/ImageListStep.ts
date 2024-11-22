@@ -24,6 +24,7 @@ import { createRequestUrl } from "../../utils/requestUtils";
 import { type IVirtualMachineWizardContext } from "./IVirtualMachineWizardContext";
 
 export const apiVersion = "2018-08-01-beta";
+
 const apiVersionQueryParam = {
 	"api-version": apiVersion,
 };
@@ -31,6 +32,7 @@ const apiVersionQueryParam = {
 export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardContext> {
 	public async prompt(context: IVirtualMachineWizardContext): Promise<void> {
 		const placeHolder: string = localize("selectImage", "Select an image");
+
 		const picks = await this.getQuickPicks(context, context.os);
 
 		const image = await context.ui.showQuickPick(picks, { placeHolder });
@@ -63,6 +65,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 			) || images[0];
 
 		const plan = await this.getPlanFromLegacyPlanId(context, defaultImage);
+
 		return await this.getImageReference(context, plan);
 	}
 
@@ -75,6 +78,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 		>[] = (await this.getFeaturedImages(context, os)).map((fi) => {
 			return { label: fi.displayName, data: fi };
 		});
+
 		return featuredImages.concat(this.getExtraImageQuickPicks(os));
 	}
 
@@ -111,6 +115,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 				)
 			).parsedBody
 		);
+
 		return images.filter((i) => i.operatingSystem.family === os);
 	}
 
@@ -136,6 +141,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 				)
 			).parsedBody
 		);
+
 		const plan: PlanFromLegacyPlanId | undefined = offer.plans.find(
 			(plan) => featuredImage.id === plan.id,
 		);
@@ -156,6 +162,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 		const uiDefUri: string | undefined = plan.artifacts.find(
 			(art) => art.name === "createuidefinition",
 		)?.uri;
+
 		if (!uiDefUri) {
 			throw new Error(
 				localize(
@@ -179,6 +186,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 				)
 			).parsedBody
 		);
+
 		return createdUiDefintion.parameters.imageReference;
 	}
 

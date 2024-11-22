@@ -123,9 +123,11 @@ export class VirtualMachineNameStep extends AzureNameStep<IVirtualMachineWizardC
 		// Virtual machine names must be unique to the current resource group.
 		const computeClient: ComputeManagementClient =
 			await createComputeClient(context);
+
 		const vmsInRg: VirtualMachine[] = await uiUtils.listAllIterator(
 			computeClient.virtualMachines.list(rgName),
 		);
+
 		if (vmsInRg.find((vm: VirtualMachine) => vm.name === name)) {
 			return false;
 		}

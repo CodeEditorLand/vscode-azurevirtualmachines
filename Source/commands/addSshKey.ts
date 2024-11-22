@@ -59,6 +59,7 @@ export async function addSshKey(
 		context,
 		node.subscription,
 	]);
+
 	const vm: VirtualMachine = node.data;
 
 	const sshPublicKey: Uri = (
@@ -69,6 +70,7 @@ export async function addSshKey(
 	)[0];
 
 	const extensionName: string = "enablevmaccess";
+
 	let vmExtension: VirtualMachineExtension;
 
 	try {
@@ -104,6 +106,7 @@ export async function addSshKey(
 		sshPublicKey.fsPath,
 		node.name,
 	);
+
 	const addingSshKeySucceeded: string = localize(
 		"addingSshKeySucceeded",
 		'Successfully added key to "{0}".',

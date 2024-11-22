@@ -29,6 +29,7 @@ export async function getResourcesAssociatedToVm(
 	const associatedResources: ResourceToDelete[] = [];
 
 	const networkReferences: { name: string; rgName: string }[] = [];
+
 	if (node.data.networkProfile?.networkInterfaces) {
 		for (const networkRef of node.data.networkProfile.networkInterfaces) {
 			if (networkRef.id) {
@@ -44,6 +45,7 @@ export async function getResourcesAssociatedToVm(
 		context,
 		node?.subscription,
 	]);
+
 	for (const networkRef of networkReferences) {
 		// if we fail to get a resource, we keep trying to get all associated resources we can rather than erroring out
 		try {
@@ -69,6 +71,7 @@ export async function getResourcesAssociatedToVm(
 						const publicIpName: string = getNameFromId(
 							ipConfigurations.publicIPAddress.id,
 						);
+
 						const publicIpRg: string = getResourceGroupFromId(
 							ipConfigurations.publicIPAddress.id,
 						);
@@ -89,6 +92,7 @@ export async function getResourcesAssociatedToVm(
 
 					if (ipConfigurations.subnet?.id) {
 						const subnetId: string = ipConfigurations.subnet.id;
+
 						const subnetRg: string = getResourceGroupFromId(
 							ipConfigurations.subnet.id,
 						);
@@ -107,6 +111,7 @@ export async function getResourcesAssociatedToVm(
 						});
 
 						const subnetName: string = getNameFromId(subnetId);
+
 						try {
 							const subnet: Subnet =
 								await networkClient.subnets.get(
@@ -114,10 +119,12 @@ export async function getResourcesAssociatedToVm(
 									virtualNetworkName,
 									subnetName,
 								);
+
 							if (subnet.networkSecurityGroup?.id) {
 								const nsgName: string = getNameFromId(
 									subnet.networkSecurityGroup.id,
 								);
+
 								const nsgRg: string = getResourceGroupFromId(
 									subnet.networkSecurityGroup.id,
 								);
@@ -150,9 +157,11 @@ export async function getResourcesAssociatedToVm(
 		const diskName: string = getNameFromId(
 			node.data.storageProfile.osDisk.managedDisk.id,
 		);
+
 		const diskRg: string = getResourceGroupFromId(
 			node.data.storageProfile.osDisk.managedDisk.id,
 		);
+
 		const computeClient: ComputeManagementClient =
 			await createComputeClient([context, node?.subscription]);
 		associatedResources.push({

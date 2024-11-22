@@ -19,6 +19,7 @@ export async function deleteWithOutput(
 		resource.resourceType,
 		resource.resourceName,
 	);
+
 	const deleteSucceeded: string = localize(
 		"DeleteSucceeded",
 		'Successfully deleted {0} "{1}".',
@@ -27,6 +28,7 @@ export async function deleteWithOutput(
 	);
 
 	ext.outputChannel.appendLog(deleting);
+
 	try {
 		await resource.deleteMethod();
 	} catch (error) {
@@ -40,6 +42,7 @@ export async function deleteWithOutput(
 			),
 		);
 		errors.push(resource);
+
 		return;
 	}
 

@@ -18,6 +18,7 @@ export class ConfirmDeleteStep extends AzureWizardPromptStep<IDeleteChildImplCon
 		const resourcesToDelete = nonNullProp(context, "resourcesToDelete");
 
 		const multiDelete: boolean = resourcesToDelete.length > 1;
+
 		const resourceList: string = resourcesToDelete
 			.map((r) => `"${r.resourceName}"`)
 			.join(", ");

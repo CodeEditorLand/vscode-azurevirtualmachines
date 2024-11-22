@@ -52,8 +52,10 @@ export function getGlobalSetting<T>(
 ): T | undefined {
 	const projectConfiguration: WorkspaceConfiguration =
 		workspace.getConfiguration(prefix);
+
 	const result: { globalValue?: T } | undefined =
 		projectConfiguration.inspect<T>(key);
+
 	return result && result.globalValue;
 }
 
@@ -70,6 +72,7 @@ export function getWorkspaceSetting<T>(
 			prefix,
 			fsPath ? Uri.file(fsPath) : undefined,
 		);
+
 	return projectConfiguration.get<T>(key);
 }
 
@@ -83,11 +86,14 @@ export function getWorkspaceSettingFromAnyFolder(
 ): string | undefined {
 	if (workspace.workspaceFolders && workspace.workspaceFolders.length > 0) {
 		let result: string | undefined;
+
 		for (const folder of workspace.workspaceFolders) {
 			const projectConfiguration: WorkspaceConfiguration =
 				workspace.getConfiguration(prefix, folder.uri);
+
 			const folderResult: string | undefined =
 				projectConfiguration.get<string>(key);
+
 			if (!result) {
 				result = folderResult;
 			} else if (folderResult && result !== folderResult) {

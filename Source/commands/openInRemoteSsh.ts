@@ -48,10 +48,13 @@ export async function openInRemoteSsh(
 
 	const sshConfigPath: string = join(sshFsPath, "config");
 	await fse.ensureFile(sshConfigPath);
+
 	const configFile: string = (await fse.readFile(sshConfigPath)).toString();
+
 	const sshConfig: SSHConfig.HostConfigurationDirective[] = <
 		SSHConfig.HostConfigurationDirective[]
 	>SSHConfig.parse(configFile);
+
 	const hostName: string = await node.getIpAddress(context);
 
 	const hostConfig: SSHConfig.HostConfigurationDirective | undefined =
@@ -62,6 +65,7 @@ export async function openInRemoteSsh(
 					const castedConfig: SSHConfig.BaseConfigurationDirective = <
 						SSHConfig.BaseConfigurationDirective
 					>config;
+
 					return (
 						castedConfig.param === "HostName" &&
 						castedConfig.value === hostName
@@ -71,6 +75,7 @@ export async function openInRemoteSsh(
 		});
 
 	let host: string;
+
 	if (hostConfig === undefined) {
 		await context.ui.showWarningMessage(
 			localize(

@@ -8,5 +8,6 @@ export function createRequestUrl(
 	queryParams: Record<string, string>,
 ): string {
 	const queryString = new URLSearchParams(queryParams).toString();
+
 	return `${base}?${queryString}`;
 }

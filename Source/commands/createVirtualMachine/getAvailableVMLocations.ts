@@ -22,6 +22,7 @@ export async function getAvailableVMLocations(
 	const resourceSkus: ResourceSku[] = await uiUtils.listAllIterator(
 		computeClient.resourceSkus.list(),
 	);
+
 	return resourceSkus
 		.filter(
 			(sku) => sku.resourceType && sku.resourceType === "virtualMachines",

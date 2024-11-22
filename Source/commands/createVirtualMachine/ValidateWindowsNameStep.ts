@@ -12,6 +12,7 @@ export class ValidateWindowsNameStep extends AzureWizardPromptStep<IVirtualMachi
 	public async prompt(context: IVirtualMachineWizardContext): Promise<void> {
 		const nameWithNoPeriods: string | undefined =
 			context.newVirtualMachineName?.replace(/\./g, "");
+
 		const noPeriods: string = localize(
 			"noPeriods",
 			'Windows VM names cannot contain periods.  Use "{0}" instead?',

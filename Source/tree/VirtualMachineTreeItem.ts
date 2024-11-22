@@ -49,7 +49,9 @@ import { treeUtils } from "../utils/treeUtils";
 export interface ResolvedVirtualMachine extends ResolvedAppResourceBase {
 	data: VirtualMachine;
 	resourceGroup: string;
+
 	getIpAddress(context: IActionContext): Promise<string>;
+
 	getUser(): string;
 	label: string;
 	name: string;
@@ -130,6 +132,7 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 	public async getIpAddress(context: IActionContext): Promise<string> {
 		const networkClient: NetworkManagementClient =
 			await createNetworkClient([context, this._subscription]);
+
 		const rgName: string = getResourceGroupFromId(this.id);
 
 		const networkInterfaces: NetworkInterfaceReference[] =
@@ -137,6 +140,7 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 				this.virtualMachine.networkProfile,
 				"networkInterfaces",
 			);
+
 		if (networkInterfaces.length === 0) {
 			throw new Error(
 				localize(
@@ -150,11 +154,13 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 		const networkInterfaceName: string = getNameFromId(
 			nonNullProp(networkInterfaces[0], "id"),
 		);
+
 		const networkInterface: NetworkInterface =
 			await networkClient.networkInterfaces.get(
 				rgName,
 				networkInterfaceName,
 			);
+
 		if (
 			!networkInterface.ipConfigurations ||
 			networkInterface.ipConfigurations.length === 0
@@ -174,10 +180,12 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 				"id",
 			),
 		);
+
 		const ip: PublicIPAddress = await networkClient.publicIPAddresses.get(
 			rgName,
 			publicIPAddressName,
 		);
+
 		return nonNullProp(ip, "ipAddress");
 	}
 
@@ -201,6 +209,7 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 			wizardContext,
 			"resourcesToDelete",
 		);
+
 		const multiDelete: boolean = resourcesToDelete.length > 1;
 
 		wizardContext.activityTitle = multiDelete
@@ -228,6 +237,7 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 	): Promise<string | undefined> {
 		const computeClient: ComputeManagementClient =
 			await createComputeClient([context, this._subscription]);
+
 		return this.getStateFromInstanceView(
 			await computeClient.virtualMachines.instanceView(
 				this.resourceGroup,
@@ -246,6 +256,7 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 					? true
 					: false,
 			);
+
 		return powerState && powerState.displayStatus
 			? powerState.displayStatus.replace(/vm/i, "").trim()
 			: undefined;

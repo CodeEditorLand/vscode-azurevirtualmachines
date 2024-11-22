@@ -10,6 +10,7 @@ export async function getApiExport<T>(
 ): Promise<T | undefined> {
 	const extension: Extension<T> | undefined =
 		extensions.getExtension(extensionId);
+
 	if (extension) {
 		if (!extension.isActive) {
 			await extension.activate();

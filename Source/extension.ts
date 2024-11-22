@@ -53,6 +53,7 @@ export async function activateInternal(
 				await apiUtils.getExtensionExports<apiUtils.AzureExtensionApiProvider>(
 					"ms-azuretools.vscode-azureresourcegroups",
 				);
+
 			if (rgApiProvider) {
 				const api =
 					rgApiProvider.getApi<AzureHostExtensionApi>("0.0.1");

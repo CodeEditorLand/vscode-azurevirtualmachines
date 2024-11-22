@@ -12,9 +12,11 @@ import { type ExtensionContext } from "vscode";
  */
 export namespace ext {
 	export let outputChannel: IAzExtOutputChannel;
+
 	export let context: ExtensionContext;
 
 	export let ignoreBundle: boolean | undefined;
+
 	export const prefix: string = "azureVirtualMachines";
 
 	export let rgApi: AzureHostExtensionApi;

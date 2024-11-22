@@ -22,12 +22,14 @@ export namespace cpUtils {
 			command,
 			...args,
 		);
+
 		if (result.code !== 0) {
 			// We want to make sure the full error message is displayed to the user, not just the error code.
 			// If outputChannel is defined, then we simply call 'outputChannel.show()' and throw a generic error telling the user to check the output window
 			// If outputChannel is _not_ defined, then we include the command's output in the error itself and rely on AzureActionHandler to display it properly
 			if (outputChannel) {
 				outputChannel.show();
+
 				throw new Error(
 					localize(
 						"azVms.commandErrorWithOutput",
@@ -75,14 +77,18 @@ export namespace cpUtils {
 				reject: (e: Error) => void,
 			): void => {
 				let cmdOutput: string = "";
+
 				let cmdOutputIncludingStderr: string = "";
+
 				const formattedArgs: string = args.join(" ");
 
 				workingDirectory = workingDirectory || os.tmpdir();
+
 				const options: cp.SpawnOptions = {
 					cwd: workingDirectory,
 					shell: true,
 				};
+
 				const childProc: cp.ChildProcess = cp.spawn(
 					command,
 					args,
@@ -105,6 +111,7 @@ export namespace cpUtils {
 					cmdOutput = cmdOutput.concat(data);
 					cmdOutputIncludingStderr =
 						cmdOutputIncludingStderr.concat(data);
+
 					if (outputChannel) {
 						outputChannel.append(data);
 					}
@@ -114,6 +121,7 @@ export namespace cpUtils {
 					data = data.toString();
 					cmdOutputIncludingStderr =
 						cmdOutputIncludingStderr.concat(data);
+
 					if (outputChannel) {
 						outputChannel.append(data);
 					}
@@ -136,6 +144,7 @@ export namespace cpUtils {
 		code: number;
 		cmdOutput: string;
 		cmdOutputIncludingStderr: string;
+
 		formattedArgs: string;
 	}
 

@@ -33,6 +33,7 @@ export class SubnetCreateStep extends AzureWizardExecuteStep<IVirtualMachineWiza
 			context.resourceGroup,
 			"name",
 		);
+
 		const vnetName: string = nonNullValueAndProp(
 			context.virtualNetwork,
 			"name",
@@ -44,6 +45,7 @@ export class SubnetCreateStep extends AzureWizardExecuteStep<IVirtualMachineWiza
 			"creatingSubnet",
 			`Creating new subnet "${subnetName}"...`,
 		);
+
 		const subnetProps: Subnet = {
 			addressPrefix: nonNullProp(context, "addressPrefix"),
 			name: subnetName,

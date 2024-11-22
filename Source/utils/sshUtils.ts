@@ -36,11 +36,15 @@ export async function createSshKey(
 ): Promise<{ sshKeyName: string; keyData: string }> {
 	return await callWithMaskHandling(async () => {
 		let sshKeyName: string = `azure_${vmName}_rsa`;
+
 		let sshKeyPath: string = join(sshFsPath, sshKeyName);
+
 		let keyExists: boolean = await fse.pathExists(`${sshKeyPath}.pub`);
 
 		const maxTime: number = Date.now() + 3000;
+
 		let count: number = 2;
+
 		while (keyExists && Date.now() < maxTime) {
 			sshKeyName = `azure_${vmName}_${count}_rsa`;
 			sshKeyPath = join(sshFsPath, sshKeyName);
@@ -53,6 +57,7 @@ export async function createSshKey(
 				'Generating public/private rsa key pair in "{0}"...',
 				sshKeyPath,
 			);
+
 			const generatedKey: string = localize(
 				"generatedKey",
 				'Generated public/private rsa key pair in "{0}".',
@@ -97,6 +102,7 @@ export async function createSshKey(
 
 				const client: ComputeManagementClient =
 					await createComputeClient(context);
+
 				const rgName: string = nonNullValueAndProp(
 					context.resourceGroup,
 					"name",
@@ -135,9 +141,11 @@ export async function configureSshConfig(
 
 	// If we find duplicate Hosts, we can just make a new entry called Host (2)...(3)...etc
 	const hostName: string = await vmti.getIpAddress(context);
+
 	let host: string = vmti.name;
 
 	const configFile: string = (await fse.readFile(sshConfigPath)).toString();
+
 	const sshConfig: SSHConfig.Configuration = SSHConfig.parse(configFile);
 	// if the host can't be computed, it returns an empty {}
 	const hostEntry: SSHConfig.ResolvedConfiguration = sshConfig.compute(host);

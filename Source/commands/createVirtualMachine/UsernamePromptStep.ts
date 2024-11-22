@@ -43,7 +43,9 @@ export class UsernamePromptStep extends AzureWizardPromptStep<IVirtualMachineWiz
 		value: string | undefined,
 	): string | undefined {
 		const usernameMinLength: number = 1;
+
 		const usernameMaxLength: number = os === "Linux" ? 64 : 20;
+
 		const invalidCharsRegExp: RegExp =
 			os === "Linux"
 				? /^[0-9|-]|[^a-zA-Z0-9\_\-]/g

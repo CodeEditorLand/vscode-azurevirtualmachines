@@ -35,6 +35,7 @@ export class SelectResourcesToDeleteStep extends AzureWizardPromptStep<IDeleteCh
 					canPickMany: true,
 				},
 			);
+
 		if (resourcesToDelete.length === 0) {
 			// if nothing is checked, it should be considered a cancel
 			throw new UserCancelledError();

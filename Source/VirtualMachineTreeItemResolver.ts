@@ -35,11 +35,13 @@ export class VirtualMachineResolver implements AppResourceResolver {
 			async (context: IActionContext) => {
 				const client: ComputeManagementClient =
 					await createComputeClient([context, subContext]);
+
 				const vm: VirtualMachine = await client.virtualMachines.get(
 					getResourceGroupFromId(resource.id),
 					resource.name,
 					{ expand: "instanceView" },
 				);
+
 				return new VirtualMachineTreeItem(subContext, {
 					...resource,
 					...vm,

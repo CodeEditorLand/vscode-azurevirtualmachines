@@ -43,6 +43,7 @@ export class NetworkInterfaceCreateStep extends AzureWizardExecuteStep<IVirtualM
 			undefined,
 			true,
 		);
+
 		const { location, extendedLocation } =
 			LocationListStep.getExtendedLocation(newLocation);
 
@@ -57,6 +58,7 @@ export class NetworkInterfaceCreateStep extends AzureWizardExecuteStep<IVirtualM
 			context,
 			"publicIpAddress",
 		);
+
 		const subnet: Subnet = nonNullProp(context, "subnet");
 
 		const networkInterfaceProps: NetworkInterface = {

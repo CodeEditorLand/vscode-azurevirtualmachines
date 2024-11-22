@@ -23,6 +23,7 @@ export async function revealTreeItem(resourceId: string): Promise<void> {
 					...context,
 					loadAll: true,
 				});
+
 			if (node) {
 				await ext.rgApi.appResourceTreeView.reveal(node, {
 					select: true,

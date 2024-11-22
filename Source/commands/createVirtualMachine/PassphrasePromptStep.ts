@@ -16,12 +16,14 @@ import { type IVirtualMachineWizardContext } from "./IVirtualMachineWizardContex
 export class PassphrasePromptStep extends AzureWizardPromptStep<IVirtualMachineWizardContext> {
 	public async prompt(context: IVirtualMachineWizardContext): Promise<void> {
 		const isWindows: boolean = context.os === "Windows";
+
 		const prompt: string = !isWindows
 			? localize(
 					"passphrasePrompt",
 					"Enter a passphrase for connecting to this virtual machine",
 				)
 			: localize("passwordPrompt", "Enter an admin password");
+
 		const placeHolder: string = !isWindows
 			? localize("enterPassphrase", "(empty for no passphrase)")
 			: "";
@@ -40,6 +42,7 @@ export class PassphrasePromptStep extends AzureWizardPromptStep<IVirtualMachineW
 		const promptForPassphrase: boolean | undefined = getWorkspaceSetting(
 			"promptForPassphrase",
 		);
+
 		return (
 			!context.passphrase &&
 			!(!promptForPassphrase && context.os === "Linux")
@@ -71,6 +74,7 @@ export class PassphrasePromptStep extends AzureWizardPromptStep<IVirtualMachineW
 		value: string | undefined,
 	): string | undefined {
 		const passphraseMinLength: number = 5;
+
 		if (value && value.length < passphraseMinLength) {
 			return localize(
 				"invalidLength",
@@ -86,6 +90,7 @@ export class PassphrasePromptStep extends AzureWizardPromptStep<IVirtualMachineW
 		value: string | undefined,
 	): string | undefined {
 		const passwordMinLength: number = 12;
+
 		const passwordMaxLength: number = 123;
 
 		if (!value) {
@@ -112,15 +117,21 @@ export class PassphrasePromptStep extends AzureWizardPromptStep<IVirtualMachineW
 
 	private numberOfPasswordComplexityRequirements(password: string): number {
 		const lowercase: RegExp = /[a-z]/;
+
 		const uppercase: RegExp = /[A-Z]/;
+
 		const numeric: RegExp = /[0-9]/;
+
 		const specialCharacters: RegExp = /[!@#\$%\^&\*]/;
 
 		const lowercaseRequirement: number =
 			password.match(lowercase)?.length || 0;
+
 		const uppercaseRequirement: number =
 			password.match(uppercase)?.length || 0;
+
 		const numericRequirement: number = password.match(numeric)?.length || 0;
+
 		const specialCharactersRequirement: number =
 			password.match(specialCharacters)?.length || 0;
 

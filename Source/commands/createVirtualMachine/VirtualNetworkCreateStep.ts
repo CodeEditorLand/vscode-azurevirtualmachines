@@ -38,6 +38,7 @@ export class VirtualNetworkCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			undefined,
 			true,
 		);
+
 		const { location, extendedLocation } =
 			LocationListStep.getExtendedLocation(newLocation);
 
@@ -48,10 +49,12 @@ export class VirtualNetworkCreateStep extends AzureWizardExecuteStep<IVirtualMac
 				addressPrefixes: [nonNullProp(context, "addressPrefix")],
 			},
 		};
+
 		const rgName: string = nonNullValueAndProp(
 			context.resourceGroup,
 			"name",
 		);
+
 		const vmName: string = nonNullProp(context, "newVirtualMachineName");
 		// network names can't be 1 character and will fail the creation
 		const vnName: string = vmName.length === 1 ? `${vmName}-vnet` : vmName;

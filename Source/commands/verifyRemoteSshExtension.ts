@@ -15,6 +15,7 @@ export async function verifyRemoteSshExtension(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const extension: Extension<any> | undefined =
 		extensions.getExtension(remoteSshExtensionId);
+
 	if (extension) {
 		if (!extension.isActive) {
 			await extension.activate();
@@ -28,6 +29,7 @@ export async function verifyRemoteSshExtension(
 		);
 		context.telemetry.properties.cancelStep = "installRemoteSsh";
 		context.errorHandling.suppressDisplay = true;
+
 		throw new Error(`${remoteSshExtensionId} extension is not installed.`);
 	}
 }

@@ -29,6 +29,7 @@ export async function copyIpAddress(
 	}
 
 	await vscode.env.clipboard.writeText(await node.getIpAddress(context));
+
 	const message: string = localize(
 		"copiedIpAddress",
 		'"{0}"\'s IP address has been copied to the clipboard',

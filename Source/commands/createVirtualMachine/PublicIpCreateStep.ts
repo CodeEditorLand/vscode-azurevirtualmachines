@@ -38,6 +38,7 @@ export class PublicIpCreateStep extends AzureWizardExecuteStep<IVirtualMachineWi
 			undefined,
 			true,
 		);
+
 		const { location, extendedLocation } =
 			LocationListStep.getExtendedLocation(newLocation);
 

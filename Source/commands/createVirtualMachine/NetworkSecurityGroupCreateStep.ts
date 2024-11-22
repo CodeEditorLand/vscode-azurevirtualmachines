@@ -33,6 +33,7 @@ export class NetworkSecurityGroupCreateStep extends AzureWizardExecuteStep<IVirt
 	): Promise<void> {
 		const networkClient: NetworkManagementClient =
 			await createNetworkClient(context);
+
 		const location: string = (await LocationListStep.getLocation(context))
 			.name;
 
@@ -107,6 +108,7 @@ export class NetworkSecurityGroupCreateStep extends AzureWizardExecuteStep<IVirt
 			"creatingNsg",
 			`Creating new network security group "${nsgName}" with inbound ports ${enabledPorts.join(", ")} enabled...`,
 		);
+
 		const rgName: string = nonNullValueAndProp(
 			context.resourceGroup,
 			"name",

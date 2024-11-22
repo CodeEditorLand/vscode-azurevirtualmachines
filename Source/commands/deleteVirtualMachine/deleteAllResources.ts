@@ -40,8 +40,11 @@ export async function deleteAllResources(
 		networkInterfaceLabel,
 		virtualNetworkLabel,
 	];
+
 	const serialResources: ResourceToDelete[] = [];
+
 	const parallelResources: ResourceToDelete[] = [];
+
 	for (const resource of resourcesToDelete) {
 		orderedLabels.includes(resource.resourceType)
 			? serialResources.push(resource)
@@ -53,6 +56,7 @@ export async function deleteAllResources(
 			orderedLabels.indexOf(a.resourceType) -
 			orderedLabels.indexOf(b.resourceType),
 	);
+
 	for (const resource of serialResources) {
 		await deleteWithOutput(resource, failedResources);
 	}
@@ -70,6 +74,7 @@ export async function deleteAllResources(
 	const resources: GenericResourceExpanded[] = await uiUtils.listAllIterator(
 		resourceClient.resources.listByResourceGroup(resourceGroupName),
 	);
+
 	if (resources.length === 0) {
 		await deleteWithOutput(
 			{

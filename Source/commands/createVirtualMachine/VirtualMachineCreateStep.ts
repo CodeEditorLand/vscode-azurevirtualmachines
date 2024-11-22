@@ -46,6 +46,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			undefined,
 			true,
 		);
+
 		const { location, extendedLocation } =
 			LocationListStep.getExtendedLocation(newLocation);
 
@@ -55,6 +56,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 
 		const computeClient: ComputeManagementClient =
 			await createComputeClient(context);
+
 		const hardwareProfile: HardwareProfile = { vmSize: context.size };
 
 		const vmName: string = nonNullProp(context, "newVirtualMachineName");
@@ -77,6 +79,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			context,
 			"networkInterface",
 		);
+
 		const networkProfile: NetworkProfile = {
 			networkInterfaces: [{ id: networkInterface.id }],
 		};
@@ -85,6 +88,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			computerName: vmName,
 			adminUsername: context.adminUsername,
 		};
+
 		if (context.os === "Linux") {
 			const { sshKeyName, keyData } = await createSshKey(
 				context,
@@ -92,6 +96,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 				context.passphrase || "",
 			);
 			context.sshKeyName = sshKeyName;
+
 			const linuxConfiguration: LinuxConfiguration = {
 				disablePasswordAuthentication: true,
 				ssh: {
@@ -107,6 +112,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			osProfile.linuxConfiguration = linuxConfiguration;
 		} else {
 			osProfile.adminPassword = context.passphrase;
+
 			const windowConfiguration: WindowsConfiguration = {};
 			osProfile.windowsConfiguration = windowConfiguration;
 		}
@@ -130,6 +136,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			'Creating new virtual machine "{0}"...',
 			vmName,
 		);
+
 		const creatingVmDetails: string = localize(
 			"creatingVmDetails",
 			'Creating new virtual machine "{0}" with size "{1}" and image "{2}"',
@@ -169,6 +176,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 					"postCreateVM",
 					async (c: IActionContext) => {
 						c.telemetry.properties.dialogResult = result?.title;
+
 						if (result === viewOutput) {
 							ext.outputChannel.show();
 						}

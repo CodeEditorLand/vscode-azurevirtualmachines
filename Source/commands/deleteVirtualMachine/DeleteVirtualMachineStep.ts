@@ -30,7 +30,9 @@ export class DeleteVirtualMachineStep extends AzureWizardExecuteStep<IDeleteChil
 		}>,
 	): Promise<void> {
 		const node = nonNullProp(context, "node");
+
 		const resourcesToDelete = nonNullProp(context, "resourcesToDelete");
+
 		const multiDelete: boolean = resourcesToDelete.length > 1;
 
 		const message: string = multiDelete
@@ -58,6 +60,7 @@ export class DeleteVirtualMachineStep extends AzureWizardExecuteStep<IDeleteChil
 			node.resourceGroup,
 			resourcesToDelete,
 		);
+
 		const failedResourceList: string = failedResources
 			.map((r) => `"${r.resourceName}"`)
 			.join(", ");
@@ -107,6 +110,7 @@ export class DeleteVirtualMachineStep extends AzureWizardExecuteStep<IDeleteChil
 						ext.outputChannel.show(),
 				};
 				context.errorHandling.buttons = [viewOutputAzureButton];
+
 				throw new Error(messageDeleteWithErrors);
 			}
 

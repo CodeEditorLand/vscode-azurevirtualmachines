@@ -56,6 +56,7 @@ export async function createVirtualMachine(
 	const size: VirtualMachineSizeTypes = node.subscription.isCustomCloud
 		? "Standard_DS1_v2"
 		: "Standard_D2s_v3";
+
 	const wizardContext: IVirtualMachineWizardContext = Object.assign(
 		context,
 		node.subscription,
@@ -77,11 +78,13 @@ export async function createVirtualMachine(
 	// By default, only prompt for VM and Location. A new RG is made for every VM
 	const promptSteps: AzureWizardPromptStep<IVirtualMachineWizardContext>[] =
 		[];
+
 	const executeSteps: AzureWizardExecuteStep<IVirtualMachineWizardContext>[] =
 		[];
 
 	promptSteps.push(new VirtualMachineNameStep());
 	promptSteps.push(new OSListStep());
+
 	const imageListStep = new ImageListStep();
 	promptSteps.push(imageListStep);
 
@@ -137,6 +140,7 @@ export async function createVirtualMachine(
 		node.subscription,
 		virtualMachine,
 	);
+
 	if (
 		newVm.contextValuesToAdd.includes(
 			VirtualMachineTreeItem.linuxContextValue,
