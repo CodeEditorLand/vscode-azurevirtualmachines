@@ -34,7 +34,9 @@ async function cleanReadme(): Promise<void> {
 exports["webpack-dev"] = gulp.series(prepareForWebpack, () =>
 	gulp_webpack("development"),
 );
+
 exports["webpack-prod"] = gulp.series(prepareForWebpack, () =>
 	gulp_webpack("production"),
 );
+
 exports.cleanReadme = cleanReadme;

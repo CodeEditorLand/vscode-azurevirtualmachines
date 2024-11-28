@@ -12,16 +12,19 @@ import { localize } from "./localize";
 export const viewOutput: MessageItem = {
 	title: localize("viewOutput", "View Output"),
 };
+
 export const remoteSshExtensionId: string = "ms-vscode-remote.remote-ssh";
 
 export const networkInterfaceLabel: string = localize(
 	"networkInterface",
 	"network interface",
 );
+
 export const virtualMachineLabel: string = localize(
 	"virtualMachine",
 	"virtual machine",
 );
+
 export const virtualNetworkLabel: string = localize(
 	"virtualNetwork",
 	"virtual network",

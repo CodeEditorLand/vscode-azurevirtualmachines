@@ -11,15 +11,19 @@
 
 // Export activate/deactivate for main.js
 export { createAzureClient } from "@microsoft/vscode-azext-azureutils";
+
 export * from "@microsoft/vscode-azext-utils";
+
 export {
 	createVirtualMachine,
 	createVirtualMachineAdvanced,
 } from "./src/commands/createVirtualMachine/createVirtualMachine";
+
 export {
 	FeaturedImage,
 	ImageListStep,
 } from "./src/commands/createVirtualMachine/ImageListStep";
+
 export { activateInternal, deactivateInternal } from "./src/extension";
 // Exports for tests
 // The tests are not packaged with the webpack bundle and therefore only have access to code exported from this file.
@@ -27,14 +31,22 @@ export { activateInternal, deactivateInternal } from "./src/extension";
 // The tests should import '../extension.bundle'. At design-time they live in tests/ and so will pick up this file (extension.bundle.ts).
 // At runtime the tests live in dist/tests and will therefore pick up the main webpack bundle at dist/extension.bundle.js.
 export * from "./src/extensionVariables";
+
 export { AzureAccountTreeItem } from "./src/tree/AzureAccountTreeItem";
+
 export * from "./src/tree/SubscriptionTreeItem";
+
 export { VirtualMachineTreeItem } from "./src/tree/VirtualMachineTreeItem";
+
 export {
 	createComputeClient,
 	createResourceClient,
 } from "./src/utils/azureClients";
+
 export * from "./src/utils/cpUtils";
+
 export * from "./src/utils/delay";
+
 export { getRandomHexString } from "./src/utils/randomUtils";
+
 export * from "./src/vsCodeConfig/extensions";
