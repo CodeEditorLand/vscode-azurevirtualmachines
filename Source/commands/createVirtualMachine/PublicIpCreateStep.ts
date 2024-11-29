@@ -27,6 +27,7 @@ export class PublicIpCreateStep extends AzureWizardExecuteStep<IVirtualMachineWi
 		context: IVirtualMachineWizardContext,
 		progress: Progress<{
 			message?: string | undefined;
+
 			increment?: number | undefined;
 		}>,
 	): Promise<void> {
@@ -63,7 +64,9 @@ export class PublicIpCreateStep extends AzureWizardExecuteStep<IVirtualMachineWi
 			"creatingIp",
 			`Creating new public IP addresss "${ipName}"...`,
 		);
+
 		progress.report({ message: creatingIp });
+
 		ext.outputChannel.appendLog(creatingIp);
 
 		try {
@@ -86,8 +89,10 @@ export class PublicIpCreateStep extends AzureWizardExecuteStep<IVirtualMachineWi
 					),
 				);
 			}
+
 			throw e;
 		}
+
 		ext.outputChannel.appendLog(
 			localize(
 				"creatingIp",

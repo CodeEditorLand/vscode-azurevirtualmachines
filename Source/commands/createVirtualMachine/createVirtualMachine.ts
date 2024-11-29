@@ -69,6 +69,7 @@ export async function createVirtualMachine(
 	);
 
 	const computeProvider: string = "Microsoft.Compute";
+
 	LocationListStep.setLocationSubset(
 		wizardContext,
 		getAvailableVMLocations(wizardContext),
@@ -83,22 +84,33 @@ export async function createVirtualMachine(
 		[];
 
 	promptSteps.push(new VirtualMachineNameStep());
+
 	promptSteps.push(new OSListStep());
 
 	const imageListStep = new ImageListStep();
+
 	promptSteps.push(imageListStep);
 
 	promptSteps.push(new UsernamePromptStep());
+
 	promptSteps.push(new PassphrasePromptStep());
+
 	LocationListStep.addStep(wizardContext, promptSteps);
 
 	executeSteps.push(new ResourceGroupCreateStep());
+
 	executeSteps.push(new PublicIpCreateStep());
+
 	executeSteps.push(new VirtualNetworkCreateStep());
+
 	executeSteps.push(new SubnetCreateStep());
+
 	executeSteps.push(new NetworkSecurityGroupCreateStep());
+
 	executeSteps.push(new NetworkInterfaceCreateStep());
+
 	executeSteps.push(new VirtualMachineCreateStep());
+
 	executeSteps.push(
 		new VerifyProvidersStep([computeProvider, "Microsoft.Network"]),
 	);
@@ -108,8 +120,10 @@ export async function createVirtualMachine(
 	if (!context.advancedCreation) {
 		// for basic create, default to image Ubuntu 18.04 LTS
 		wizardContext.os = "Linux";
+
 		wizardContext.imageTask =
 			imageListStep.getDefaultImageReference(wizardContext);
+
 		wizardContext.adminUsername = "azureuser";
 	}
 
@@ -129,6 +143,7 @@ export async function createVirtualMachine(
 	);
 
 	await wizard.execute();
+
 	await ext.rgApi.appResourceTree.refresh(context);
 
 	const virtualMachine: VirtualMachine = nonNullProp(

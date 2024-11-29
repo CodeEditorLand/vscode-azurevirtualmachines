@@ -36,6 +36,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 		const picks = await this.getQuickPicks(context, context.os);
 
 		const image = await context.ui.showQuickPick(picks, { placeHolder });
+
 		context.telemetry.properties.image = image.label;
 
 		// if there was no data, it is not a featured image and we have a constant map for these
@@ -44,6 +45,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 				context,
 				image.data,
 			);
+
 			context.imageTask = this.getImageReference(context, plan);
 		} else {
 			context.image = image.data;
@@ -171,6 +173,7 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 				),
 			);
 		}
+
 		const getUiDefOptions: AzExtRequestPrepareOptions = {
 			method: "GET",
 			url: createRequestUrl(uiDefUri, apiVersionQueryParam),
@@ -214,9 +217,13 @@ export class ImageListStep extends AzureWizardPromptStep<IVirtualMachineWizardCo
 
 export type FeaturedImage = {
 	displayName: string;
+
 	freeTierEligible: boolean;
+
 	id: string;
+
 	legacyPlanId: string;
+
 	operatingSystem: { family: OperatingSystemTypes };
 };
 
@@ -229,19 +236,24 @@ type OfferFromLegacyPlanId = {
 
 type PlanFromLegacyPlanId = {
 	id: string;
+
 	artifacts: PlanArtifacts[];
 };
 
 type PlanArtifacts = {
 	name: string;
+
 	type: string;
+
 	uri: string;
 };
 
 type UiDefinition = {
 	parameters: {
 		osPlatform: OperatingSystemTypes;
+
 		recommendedSizes: VirtualMachineSizeTypes[];
+
 		imageReference: ImageReference;
 	};
 };

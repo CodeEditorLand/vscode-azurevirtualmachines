@@ -48,12 +48,15 @@ import { treeUtils } from "../utils/treeUtils";
 
 export interface ResolvedVirtualMachine extends ResolvedAppResourceBase {
 	data: VirtualMachine;
+
 	resourceGroup: string;
 
 	getIpAddress(context: IActionContext): Promise<string>;
 
 	getUser(): string;
+
 	label: string;
+
 	name: string;
 }
 
@@ -101,10 +104,13 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 	}
 
 	public static linuxContextValue: string = "linuxVirtualMachine";
+
 	public static windowsContextValue: string = "windowsVirtualMachine";
+
 	public static allOSContextValue: RegExp = /VirtualMachine$/;
 
 	public contextValuesToAdd: string[] = [];
+
 	public virtualMachine: VirtualMachine;
 
 	private _state?: string;
@@ -114,9 +120,11 @@ export class VirtualMachineTreeItem implements ResolvedVirtualMachine {
 		vm: VirtualMachine,
 	) {
 		this.virtualMachine = vm;
+
 		this._state = vm.instanceView
 			? this.getStateFromInstanceView(vm.instanceView)
 			: undefined;
+
 		this.contextValuesToAdd = vm.osProfile?.linuxConfiguration
 			? [VirtualMachineTreeItem.linuxContextValue]
 			: [VirtualMachineTreeItem.windowsContextValue];

@@ -22,6 +22,7 @@ export class ConfirmDeleteStep extends AzureWizardPromptStep<IDeleteChildImplCon
 		const resourceList: string = resourcesToDelete
 			.map((r) => `"${r.resourceName}"`)
 			.join(", ");
+
 		context.resourceList = resourceList;
 
 		const confirmMessage: string = multiDelete
@@ -46,8 +47,10 @@ export class ConfirmDeleteStep extends AzureWizardPromptStep<IDeleteChildImplCon
 		const deleteVm = resourcesToDelete.some(
 			(r) => r.resourceType === virtualMachineLabel,
 		);
+
 		context.telemetry.properties.numOfResources =
 			resourcesToDelete.length.toString();
+
 		context.telemetry.properties.deleteVm = String(deleteVm);
 	}
 

@@ -23,6 +23,7 @@ const reservedWords: string[] = [
 export class UsernamePromptStep extends AzureWizardPromptStep<IVirtualMachineWizardContext> {
 	public async prompt(context: IVirtualMachineWizardContext): Promise<void> {
 		const prompt: string = localize("usernamePrompt", "Enter a username");
+
 		context.adminUsername = await context.ui.showInputBox({
 			prompt,
 			value: context.os === "Linux" ? "azureuser" : "",
@@ -31,6 +32,7 @@ export class UsernamePromptStep extends AzureWizardPromptStep<IVirtualMachineWiz
 			): Promise<string | undefined> =>
 				this.validateUsername(nonNullProp(context, "os"), value),
 		});
+
 		context.valuesToMask.push(context.adminUsername);
 	}
 

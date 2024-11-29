@@ -23,6 +23,7 @@ export class SubnetCreateStep extends AzureWizardExecuteStep<IVirtualMachineWiza
 		context: IVirtualMachineWizardContext,
 		progress: Progress<{
 			message?: string | undefined;
+
 			increment?: number | undefined;
 		}>,
 	): Promise<void> {
@@ -53,6 +54,7 @@ export class SubnetCreateStep extends AzureWizardExecuteStep<IVirtualMachineWiza
 		};
 
 		progress.report({ message: creatingSubnet });
+
 		ext.outputChannel.appendLog(creatingSubnet);
 
 		await networkClient.subnets.beginCreateOrUpdateAndWait(
@@ -67,6 +69,7 @@ export class SubnetCreateStep extends AzureWizardExecuteStep<IVirtualMachineWiza
 			vnetName,
 			subnetName,
 		);
+
 		ext.outputChannel.appendLog(
 			localize("createdSubnet", `Created new subnet "${subnetName}".`),
 		);

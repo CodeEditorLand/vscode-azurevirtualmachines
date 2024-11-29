@@ -31,12 +31,14 @@ export const virtualMachineNamingRules: IAzureNamingRules = {
 export class VirtualMachineNameStep extends AzureNameStep<IVirtualMachineWizardContext> {
 	public async prompt(context: IVirtualMachineWizardContext): Promise<void> {
 		const namingRules: IAzureNamingRules[] = [resourceGroupNamingRules];
+
 		namingRules.push(virtualMachineNamingRules);
 
 		const prompt: string = localize(
 			"virtualMachineNamePrompt",
 			"Enter a name for the new virtual machine.",
 		);
+
 		context.newVirtualMachineName = (
 			await context.ui.showInputBox({
 				prompt,
@@ -46,7 +48,9 @@ export class VirtualMachineNameStep extends AzureNameStep<IVirtualMachineWizardC
 					await this.validateVirtualMachineName(context, value),
 			})
 		).trim();
+
 		context.valuesToMask.push(context.newVirtualMachineName);
+
 		context.relatedNameTask = this.generateRelatedName(
 			context,
 			context.newVirtualMachineName,

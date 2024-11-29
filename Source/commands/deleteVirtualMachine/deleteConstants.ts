@@ -12,7 +12,9 @@ import { type ResolvedVirtualMachineTreeItem } from "../../tree/VirtualMachineTr
 
 export type ResourceToDelete = {
 	resourceName: string;
+
 	resourceType: string;
+
 	picked?: boolean; // mark true if the resource should be marked to delete by default
 	deleteMethod(): Promise<void>; // an async wrapper for the deleteMethod to be called
 };

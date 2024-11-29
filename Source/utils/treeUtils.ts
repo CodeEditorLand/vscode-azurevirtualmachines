@@ -10,6 +10,7 @@ import { ext } from "../extensionVariables";
 export namespace treeUtils {
 	export interface IThemedIconPath {
 		light: string;
+
 		dark: string;
 	}
 

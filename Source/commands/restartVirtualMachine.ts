@@ -38,13 +38,16 @@ export async function restartVirtualMachine(
 		localize("restarting", "Restarting..."),
 		async () => {
 			const vmti: ResolvedVirtualMachineTreeItem = nonNullValue(node);
+
 			ext.outputChannel.appendLog(
 				localize("restartingVm", `Restarting "${vmti.name}"...`),
 			);
+
 			await computeClient.virtualMachines.beginRestartAndWait(
 				vmti.resourceGroup,
 				vmti.name,
 			);
+
 			ext.outputChannel.appendLog(
 				localize("restartedVm", `"${vmti.name}" has been restarted.`),
 			);

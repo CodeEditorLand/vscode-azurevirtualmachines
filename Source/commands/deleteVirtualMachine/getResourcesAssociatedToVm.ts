@@ -54,6 +54,7 @@ export async function getResourcesAssociatedToVm(
 					networkRef.rgName,
 					networkRef.name,
 				);
+
 			associatedResources.push({
 				resourceName: networkRef.name,
 				resourceType: networkInterfaceLabel,
@@ -75,6 +76,7 @@ export async function getResourcesAssociatedToVm(
 						const publicIpRg: string = getResourceGroupFromId(
 							ipConfigurations.publicIPAddress.id,
 						);
+
 						associatedResources.push({
 							resourceName: publicIpName,
 							resourceType: localize(
@@ -99,6 +101,7 @@ export async function getResourcesAssociatedToVm(
 						// example of subnet id: '/subscriptions/9b5c7ccb-9857-4307-843b-8875e83f65e9/resourceGroups/linux-vm/providers/Microsoft.Network/virtualNetworks/linux-vm/subnets/default'
 						const virtualNetworkName: string =
 							subnetId.split("/")[8];
+
 						associatedResources.push({
 							resourceName: virtualNetworkName,
 							resourceType: virtualNetworkLabel,
@@ -128,6 +131,7 @@ export async function getResourcesAssociatedToVm(
 								const nsgRg: string = getResourceGroupFromId(
 									subnet.networkSecurityGroup.id,
 								);
+
 								associatedResources.push({
 									resourceName: nsgName,
 									resourceType: localize(
@@ -164,6 +168,7 @@ export async function getResourcesAssociatedToVm(
 
 		const computeClient: ComputeManagementClient =
 			await createComputeClient([context, node?.subscription]);
+
 		associatedResources.push({
 			resourceName: diskName,
 			resourceType: localize("disk", "disk"),

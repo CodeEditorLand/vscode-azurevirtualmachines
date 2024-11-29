@@ -30,20 +30,25 @@ export async function activateInternal(
 	ignoreBundle?: boolean,
 ): Promise<apiUtils.AzureExtensionApiProvider> {
 	ext.context = context;
+
 	ext.ignoreBundle = ignoreBundle;
+
 	ext.outputChannel = createAzExtOutputChannel(
 		"Azure Virtual Machines",
 		ext.prefix,
 	);
+
 	context.subscriptions.push(ext.outputChannel);
 
 	registerUIExtensionVariables(ext);
+
 	registerAzureUtilsExtensionVariables(ext);
 
 	await callWithTelemetryAndErrorHandling(
 		"azureVirtualMachines.activate",
 		async (activateContext: IActionContext) => {
 			activateContext.telemetry.properties.isActivationEvent = "true";
+
 			activateContext.telemetry.measurements.mainFileLoad =
 				(perfStats.loadEndTime - perfStats.loadStartTime) / 1000;
 
@@ -57,7 +62,9 @@ export async function activateInternal(
 			if (rgApiProvider) {
 				const api =
 					rgApiProvider.getApi<AzureHostExtensionApi>("0.0.1");
+
 				ext.rgApi = api;
+
 				api.registerApplicationResourceResolver(
 					AzExtResourceType.VirtualMachines,
 					new VirtualMachineResolver(),

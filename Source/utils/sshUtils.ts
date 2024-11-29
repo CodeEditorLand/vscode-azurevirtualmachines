@@ -47,10 +47,14 @@ export async function createSshKey(
 
 		while (keyExists && Date.now() < maxTime) {
 			sshKeyName = `azure_${vmName}_${count}_rsa`;
+
 			sshKeyPath = join(sshFsPath, sshKeyName);
+
 			keyExists = await fse.pathExists(`${sshKeyPath}.pub`);
+
 			count += 1;
 		}
+
 		if (!keyExists) {
 			const generatingKey: string = localize(
 				"generatingKey",
@@ -63,12 +67,14 @@ export async function createSshKey(
 				'Generated public/private rsa key pair in "{0}".',
 				sshKeyPath,
 			);
+
 			ext.outputChannel.appendLog(generatingKey);
 			// create the .ssh folder if it doesn't exist
 			await fse.ensureDir(sshFsPath);
 
 			if (await sshKeygenExists()) {
 				ext.outputChannel.appendLog(generatingKey);
+
 				await cpUtils.executeCommand(
 					undefined,
 					undefined,
@@ -82,15 +88,19 @@ export async function createSshKey(
 					"-N",
 					cpUtils.wrapArgInQuotes(passphrase),
 				);
+
 				ext.outputChannel.appendLog(generatedKey);
 			} else {
 				context.telemetry.properties.usedAzureKey = "true";
+
 				context.telemetry.properties.hadPassphrase = "false";
+
 				ext.outputChannel.appendLog(generatingKey);
 
 				// if ssh-keygen isn't found, we can leverage Azure's SSH keys, but they do not allow for passphrases
 				if (passphrase) {
 					context.telemetry.properties.hadPassphrase = "true";
+
 					ext.outputChannel.appendLog(
 						localize(
 							"unableToFindKeygen",
@@ -107,6 +117,7 @@ export async function createSshKey(
 					context.resourceGroup,
 					"name",
 				);
+
 				await client.sshPublicKeys.create(rgName, vmName, {
 					location: (await LocationListStep.getLocation(context))
 						.name,
@@ -114,11 +125,14 @@ export async function createSshKey(
 
 				const keyPair: SshPublicKeyGenerateKeyPairResult =
 					await client.sshPublicKeys.generateKeyPair(rgName, vmName);
+
 				await fse.writeFile(`${sshKeyPath}.pub`, keyPair.publicKey);
+
 				await fse.writeFile(sshKeyPath, keyPair.privateKey);
 
 				// delete because there's no purpose once we locally download the key pair
 				await client.sshPublicKeys.delete(rgName, vmName);
+
 				ext.outputChannel.appendLog(generatedKey);
 			}
 		}
@@ -137,6 +151,7 @@ export async function configureSshConfig(
 	sshKeyPath: string,
 ): Promise<void> {
 	const sshConfigPath: string = join(sshFsPath, "config");
+
 	await fse.ensureFile(sshConfigPath);
 
 	// If we find duplicate Hosts, we can just make a new entry called Host (2)...(3)...etc
@@ -148,6 +163,7 @@ export async function configureSshConfig(
 
 	const sshConfig: SSHConfig.Configuration = SSHConfig.parse(configFile);
 	// if the host can't be computed, it returns an empty {}
+
 	const hostEntry: SSHConfig.ResolvedConfiguration = sshConfig.compute(host);
 
 	if (hostEntry.Host) {
@@ -172,6 +188,7 @@ export async function configureSshConfig(
 	});
 
 	await fse.writeFile(sshConfigPath, sshConfig.toString());
+
 	ext.outputChannel.appendLog(
 		localize(
 			"addingEntry",

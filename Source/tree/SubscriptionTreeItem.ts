@@ -16,6 +16,7 @@ export class SubscriptionTreeItem extends SubscriptionTreeItemBase {
 		"VirtualMachine",
 		"Virtual Machine",
 	);
+
 	public supportsAdvancedCreation: boolean = true;
 
 	private _nextLink: string | undefined;

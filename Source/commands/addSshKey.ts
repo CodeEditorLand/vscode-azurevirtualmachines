@@ -117,13 +117,16 @@ export async function addSshKey(
 		{ location: ProgressLocation.Notification, title: addingSshKey },
 		async (): Promise<void> => {
 			ext.outputChannel.appendLog(addingSshKey);
+
 			await computeClient.virtualMachineExtensions.beginCreateOrUpdateAndWait(
 				nonNullValueAndProp(node, "resourceGroup"),
 				nonNullValueAndProp(node, "name"),
 				extensionName,
 				vmExtension,
 			);
+
 			void window.showInformationMessage(addingSshKeySucceeded);
+
 			ext.outputChannel.appendLog(addingSshKeySucceeded);
 		},
 	);

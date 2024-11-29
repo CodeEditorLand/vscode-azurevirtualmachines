@@ -27,6 +27,7 @@ export class VirtualNetworkCreateStep extends AzureWizardExecuteStep<IVirtualMac
 		context: IVirtualMachineWizardContext,
 		progress: Progress<{
 			message?: string | undefined;
+
 			increment?: number | undefined;
 		}>,
 	): Promise<void> {
@@ -63,8 +64,11 @@ export class VirtualNetworkCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			"creatingVn",
 			`Creating new virtual network "${vnName}"...`,
 		);
+
 		ext.outputChannel.appendLog(creatingVn);
+
 		progress.report({ message: creatingVn });
+
 		await networkClient.virtualNetworks.beginCreateOrUpdateAndWait(
 			rgName,
 			vnName,
@@ -75,6 +79,7 @@ export class VirtualNetworkCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			rgName,
 			vnName,
 		);
+
 		ext.outputChannel.appendLog(
 			localize("creatingVn", `Created new virtual network "${vnName}".`),
 		);

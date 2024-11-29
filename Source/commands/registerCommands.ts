@@ -30,41 +30,51 @@ export function registerCommands(): void {
 		"azureVirtualMachines.createVirtualMachine",
 		createVirtualMachine,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.createVirtualMachineAdvanced",
 		createVirtualMachineAdvanced,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.startVirtualMachine",
 		startVirtualMachine,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.restartVirtualMachine",
 		restartVirtualMachine,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.stopVirtualMachine",
 		stopVirtualMachine,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.addSshKey",
 		addSshKey,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.deleteVirtualMachine",
 		deleteVirtualMachine,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.copyIpAddress",
 		copyIpAddress,
 	);
+
 	registerCommandWithTreeNodeUnwrapping(
 		"azureVirtualMachines.openInRemoteSsh",
 		openInRemoteSsh,
 	);
+
 	registerCommand("azureVirtualMachines.showOutputChannel", () =>
 		ext.outputChannel.show(),
 	);
+
 	registerCommand(
 		"azureVirtualMachines.showRemoteSshExtension",
 		() =>
@@ -76,5 +86,6 @@ export function registerCommands(): void {
 
 	// Suppress "Report an Issue" button for all errors in favor of the command
 	registerErrorHandler((c) => (c.errorHandling.suppressReportIssue = true));
+
 	registerReportIssueCommand("azureVirtualMachines.reportIssue");
 }

@@ -38,6 +38,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 		context: IVirtualMachineWizardContext,
 		progress: Progress<{
 			message?: string | undefined;
+
 			increment?: number | undefined;
 		}>,
 	): Promise<void> {
@@ -51,7 +52,9 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 			LocationListStep.getExtendedLocation(newLocation);
 
 		context.telemetry.properties.os = context.os;
+
 		context.telemetry.properties.location = location;
+
 		context.telemetry.properties.size = context.size;
 
 		const computeClient: ComputeManagementClient =
@@ -60,6 +63,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 		const hardwareProfile: HardwareProfile = { vmSize: context.size };
 
 		const vmName: string = nonNullProp(context, "newVirtualMachineName");
+
 		context.image ||= await context.imageTask;
 
 		const storageProfile: StorageProfile = {
@@ -95,6 +99,7 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 				vmName,
 				context.passphrase || "",
 			);
+
 			context.sshKeyName = sshKeyName;
 
 			const linuxConfiguration: LinuxConfiguration = {
@@ -109,11 +114,13 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 					],
 				},
 			};
+
 			osProfile.linuxConfiguration = linuxConfiguration;
 		} else {
 			osProfile.adminPassword = context.passphrase;
 
 			const windowConfiguration: WindowsConfiguration = {};
+
 			osProfile.windowsConfiguration = windowConfiguration;
 		}
 
@@ -152,7 +159,9 @@ export class VirtualMachineCreateStep extends AzureWizardExecuteStep<IVirtualMac
 		);
 
 		ext.outputChannel.appendLog(creatingVmDetails);
+
 		progress.report({ message: creatingVm });
+
 		context.virtualMachine =
 			await computeClient.virtualMachines.beginCreateOrUpdateAndWait(
 				rgName,

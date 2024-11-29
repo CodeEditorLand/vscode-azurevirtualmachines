@@ -18,11 +18,13 @@ export class ValidateWindowsNameStep extends AzureWizardPromptStep<IVirtualMachi
 			'Windows VM names cannot contain periods.  Use "{0}" instead?',
 			nameWithNoPeriods,
 		);
+
 		await context.ui.showWarningMessage(
 			noPeriods,
 			{ modal: true },
 			{ title: localize("use", "Use") },
 		);
+
 		context.newVirtualMachineName = nameWithNoPeriods;
 	}
 

@@ -28,6 +28,7 @@ export class NetworkSecurityGroupCreateStep extends AzureWizardExecuteStep<IVirt
 		context: IVirtualMachineWizardContext,
 		progress: Progress<{
 			message?: string | undefined;
+
 			increment?: number | undefined;
 		}>,
 	): Promise<void> {
@@ -113,7 +114,9 @@ export class NetworkSecurityGroupCreateStep extends AzureWizardExecuteStep<IVirt
 			context.resourceGroup,
 			"name",
 		);
+
 		ext.outputChannel.appendLog(creatingNsg);
+
 		progress.report({ message: creatingNsg });
 
 		await networkClient.networkSecurityGroups.beginCreateOrUpdateAndWait(
@@ -124,6 +127,7 @@ export class NetworkSecurityGroupCreateStep extends AzureWizardExecuteStep<IVirt
 		// workaround for https://github.com/Azure/azure-sdk-for-js/issues/20249
 		context.networkSecurityGroup =
 			await networkClient.networkSecurityGroups.get(rgName, nsgName);
+
 		ext.outputChannel.appendLog(
 			localize(
 				"createdNsg",

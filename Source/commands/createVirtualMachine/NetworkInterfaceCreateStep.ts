@@ -32,6 +32,7 @@ export class NetworkInterfaceCreateStep extends AzureWizardExecuteStep<IVirtualM
 		context: IVirtualMachineWizardContext,
 		progress: Progress<{
 			message?: string | undefined;
+
 			increment?: number | undefined;
 		}>,
 	): Promise<void> {
@@ -77,13 +78,16 @@ export class NetworkInterfaceCreateStep extends AzureWizardExecuteStep<IVirtualM
 			"creatingNi",
 			`Creating new network interface "${context.newNetworkInterfaceName}"...`,
 		);
+
 		progress.report({ message: creatingNi });
+
 		ext.outputChannel.appendLog(creatingNi);
 
 		const rgName: string = nonNullValueAndProp(
 			context.resourceGroup,
 			"name",
 		);
+
 		await networkClient.networkInterfaces.beginCreateOrUpdateAndWait(
 			rgName,
 			context.newNetworkInterfaceName,
@@ -94,6 +98,7 @@ export class NetworkInterfaceCreateStep extends AzureWizardExecuteStep<IVirtualM
 			rgName,
 			context.newNetworkInterfaceName,
 		);
+
 		ext.outputChannel.appendLog(
 			localize(
 				"createdNi",

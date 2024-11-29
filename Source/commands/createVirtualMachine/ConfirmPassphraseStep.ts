@@ -14,6 +14,7 @@ export class ConfirmPassphraseStep extends AzureWizardPromptStep<IVirtualMachine
 			"confirmPassphrase",
 			"Confirm your passphrase",
 		);
+
 		await context.ui.showInputBox({
 			prompt,
 			password: true,

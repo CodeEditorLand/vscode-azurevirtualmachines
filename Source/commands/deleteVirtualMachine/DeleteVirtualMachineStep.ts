@@ -26,6 +26,7 @@ export class DeleteVirtualMachineStep extends AzureWizardExecuteStep<IDeleteChil
 		context: IDeleteChildImplContext,
 		progress: Progress<{
 			message?: string | undefined;
+
 			increment?: number | undefined;
 		}>,
 	): Promise<void> {
@@ -109,6 +110,7 @@ export class DeleteVirtualMachineStep extends AzureWizardExecuteStep<IDeleteChil
 					callback: async (): Promise<void> =>
 						ext.outputChannel.show(),
 				};
+
 				context.errorHandling.buttons = [viewOutputAzureButton];
 
 				throw new Error(messageDeleteWithErrors);

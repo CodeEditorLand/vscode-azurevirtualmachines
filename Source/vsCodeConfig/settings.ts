@@ -22,6 +22,7 @@ export async function updateGlobalSetting<T = string>(
 ): Promise<void> {
 	const projectConfiguration: WorkspaceConfiguration =
 		workspace.getConfiguration(prefix);
+
 	await projectConfiguration.update(
 		section,
 		value,
@@ -40,6 +41,7 @@ export async function updateWorkspaceSetting<T = string>(
 ): Promise<void> {
 	const projectConfiguration: WorkspaceConfiguration =
 		workspace.getConfiguration(prefix, Uri.file(fsPath));
+
 	await projectConfiguration.update(section, value);
 }
 
@@ -100,6 +102,7 @@ export function getWorkspaceSettingFromAnyFolder(
 				return undefined;
 			}
 		}
+
 		return result;
 	} else {
 		return getGlobalSetting(key, prefix);

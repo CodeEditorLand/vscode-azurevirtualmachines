@@ -41,6 +41,7 @@ export async function deleteWithOutput(
 				parseError(error).message,
 			),
 		);
+
 		errors.push(resource);
 
 		return;

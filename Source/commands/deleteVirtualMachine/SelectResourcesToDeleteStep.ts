@@ -66,6 +66,7 @@ async function getQuickPicks(
 		deleteMethod: async (): Promise<void> => {
 			const computeClient: ComputeManagementClient =
 				await createComputeClient([context, node?.subscription]);
+
 			await computeClient.virtualMachines.beginDeleteAndWait(
 				node.resourceGroup,
 				node.name,

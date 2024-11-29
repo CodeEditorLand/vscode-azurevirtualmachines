@@ -38,13 +38,16 @@ export async function startVirtualMachine(
 		localize("starting", "Starting..."),
 		async () => {
 			const vmti: ResolvedVirtualMachineTreeItem = nonNullValue(node);
+
 			ext.outputChannel.appendLog(
 				localize("startingVm", `Starting "${vmti.name}"...`),
 			);
+
 			await computeClient.virtualMachines.beginStartAndWait(
 				vmti.resourceGroup,
 				vmti.name,
 			);
+
 			ext.outputChannel.appendLog(
 				localize("startedVm", `"${vmti.name}" has been started.`),
 			);

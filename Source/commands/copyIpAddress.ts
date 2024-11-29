@@ -35,5 +35,6 @@ export async function copyIpAddress(
 		'"{0}"\'s IP address has been copied to the clipboard',
 		node.name,
 	);
+
 	void vscode.window.showInformationMessage(message);
 }

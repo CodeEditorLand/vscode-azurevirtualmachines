@@ -38,13 +38,16 @@ export async function stopVirtualMachine(
 		localize("deallocating", "Deallocating..."),
 		async () => {
 			const vmti: ResolvedVirtualMachineTreeItem = nonNullValue(node);
+
 			ext.outputChannel.appendLog(
 				localize("deallocatingVm", `Deallocating "${vmti.name}"...`),
 			);
+
 			await computeClient.virtualMachines.beginDeallocateAndWait(
 				vmti.resourceGroup,
 				vmti.name,
 			);
+
 			ext.outputChannel.appendLog(
 				localize(
 					"deallocatedVm",

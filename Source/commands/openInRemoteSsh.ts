@@ -47,6 +47,7 @@ export async function openInRemoteSsh(
 	await verifyRemoteSshExtension(context);
 
 	const sshConfigPath: string = join(sshFsPath, "config");
+
 	await fse.ensureFile(sshConfigPath);
 
 	const configFile: string = (await fse.readFile(sshConfigPath)).toString();
@@ -85,7 +86,9 @@ export async function openInRemoteSsh(
 			),
 			{ title: localize("addSSH", "Add new SSH config host") },
 		);
+
 		await addSshKey(context, node);
+
 		host = node.name;
 	} else {
 		host = Array.isArray(hostConfig.value)

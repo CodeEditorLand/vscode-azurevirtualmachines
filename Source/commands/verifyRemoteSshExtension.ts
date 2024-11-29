@@ -27,7 +27,9 @@ export async function verifyRemoteSshExtension(
 				'You must have the ["Remote - SSH" extension](command:azureVirtualMachines.showRemoteSshExtension) installed to perform this operation.',
 			),
 		);
+
 		context.telemetry.properties.cancelStep = "installRemoteSsh";
+
 		context.errorHandling.suppressDisplay = true;
 
 		throw new Error(`${remoteSshExtensionId} extension is not installed.`);
