@@ -159,7 +159,7 @@
 	},
 	"activationEvents": [],
 	"dependencies": {
-		"fs-extra": "11.2.0",
+		"fs-extra": "11.3.0",
 		"open": "10.1.0",
 		"semver": "7.6.3",
 		"ssh-config": "5.0.2",
@@ -167,7 +167,7 @@
 	},
 	"devDependencies": {
 		"@types/fs-extra": "11.0.4",
-		"@types/node": "22.10.6",
+		"@types/node": "22.10.7",
 		"@types/which": "3.0.4",
 		"glob": "11.0.1"
 	},
