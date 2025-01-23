@@ -167,7 +167,7 @@
 	},
 	"devDependencies": {
 		"@types/fs-extra": "11.0.4",
-		"@types/node": "22.10.7",
+		"@types/node": "22.10.9",
 		"@types/which": "3.0.4",
 		"glob": "11.0.1"
 	},
