@@ -161,13 +161,13 @@
 	"dependencies": {
 		"fs-extra": "11.3.0",
 		"open": "10.1.0",
-		"semver": "7.6.3",
+		"semver": "7.7.0",
 		"ssh-config": "5.0.2",
 		"which": "5.0.0"
 	},
 	"devDependencies": {
 		"@types/fs-extra": "11.0.4",
-		"@types/node": "22.10.10",
+		"@types/node": "22.13.0",
 		"@types/which": "3.0.4",
 		"glob": "11.0.1"
 	},
